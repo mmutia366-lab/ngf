@@ -164,7 +164,7 @@
                     </h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'classic', 75000)">
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler('classic', 75000)">
                             <div class="text-center">
                                 <div class="text-4xl mb-3">🥤</div>
                                 <h4 class="font-semibold text-gray-800 mb-2">Tumbler Classic</h4>
@@ -173,7 +173,7 @@
                             </div>
                         </div>
 
-                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'premium', 125000)">
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler('premium', 125000)">
                             <div class="text-center">
                                 <div class="text-4xl mb-3">🍺</div>
                                 <h4 class="font-semibold text-gray-800 mb-2">Tumbler Premium</h4>
@@ -182,7 +182,7 @@
                             </div>
                         </div>
 
-                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'deluxe', 200000)">
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler('deluxe', 200000)">
                             <div class="text-center">
                                 <div class="text-4xl mb-3">🏆</div>
                                 <h4 class="font-semibold text-gray-800 mb-2">Tumbler Deluxe</h4>
@@ -311,12 +311,16 @@
         let selectedTumblerType = '';
         let selectedPrice = 0;
 
-        function selectTumbler(event, type, price) {
+        function selectTumbler(type, price) {
+            // Remove previous selection
             document.querySelectorAll('.tumbler-card').forEach(card => {
                 card.classList.remove('selected');
             });
+            
+            // Add selection to clicked card
             event.currentTarget.classList.add('selected');
             
+            // Update hidden inputs
             document.getElementById('selectedTumbler').value = type;
             document.getElementById('tumblerPrice').value = price;
             
@@ -340,6 +344,7 @@
         function updateTotal() {
             const quantity = parseInt(document.getElementById('jumlah').value) || 1;
             const total = selectedPrice * quantity;
+            
             document.getElementById('totalHarga').textContent = 
                 'Rp ' + total.toLocaleString('id-ID');
         }
@@ -353,6 +358,7 @@
             document.getElementById('successModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('flex');
             
+            // Reset form
             document.getElementById('purchaseForm').reset();
             document.querySelectorAll('.tumbler-card').forEach(card => {
                 card.classList.remove('selected');
@@ -362,16 +368,24 @@
             document.getElementById('totalHarga').textContent = 'Rp 0';
         }
 
+        // Form submission
         document.getElementById('purchaseForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            // Validate tumbler selection
             if (!selectedTumblerType) {
-                alert('Silakan pilih jenis tumbler terlebih dahulu.');
+                alert('Silakan pilih jenis tumbler terlebih dahulu!');
                 return;
             }
             
+            // Show success modal
             showModal();
         });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
+        });
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97f4aa4442c19e23',t:'MTc1NzkwMzAzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
