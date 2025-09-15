@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pembelian Tumbler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-focus:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        .tumbler-icon { animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .success-animation { animation: successPulse 0.6s ease-out; }
+        @keyframes successPulse {0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+        .price-highlight {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .tumbler-card { transition: all 0.3s ease; }
+        .tumbler-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .tumbler-card.selected {
+            border: 2px solid #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen py-8 px-4">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="tumbler-icon text-6xl mb-4">🥤</div>
+            <h1 class="text-3xl font-bold text-white mb-2">Pembelian Tumbler</h1>
+            <p class="text-white/80">Pilih tumbler favorit Anda dan lakukan pemesanan</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="glass-effect rounded-2xl p-8 shadow-2xl">
+            <form id="purchaseForm" class="space-y-8">
+                <!-- Data Pembeli -->
+                <!-- (isi form tetap sama seperti punyamu) -->
+                <!-- ... -->
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button 
+                        type="submit" 
+                        class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    >
+                        <span class="flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01"></path>
+                            </svg>
+                            Pesan Sekarang
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="glass-effect rounded-2xl p-8 max-w-md mx-4 success-animation">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">✅</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Pesanan Berhasil!</h3>
+                    <p class="text-gray-600 mb-6">Terima kasih atas pesanan Anda. Kami akan segera menghubungi Anda untuk konfirmasi.</p>
+                    <button 
+                        onclick="closeModal()" 
+                        class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300"
+                    >
+                        Tutup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTumblerType = '';
+        let selectedPrice = 0;
+
+        function selectTumbler(type, price) {
+            document.querySelectorAll('.tumbler-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            document.getElementById('selectedTumbler').value = type;
+            document.getElementById('tumblerPrice').value = price;
+            selectedTumblerType = type;
+            selectedPrice = price;
+            updateTotal();
+        }
+
+        function changeQuantity(change) {
+            const quantityInput = document.getElementById('jumlah');
+            let currentValue = parseInt(quantityInput.value);
+            let newValue = currentValue + change;
+            if (newValue >= 1 && newValue <= 10) {
+                quantityInput.value = newValue;
+                updateTotal();
+            }
+        }
+
+        function updateTotal() {
+            const quantity = parseInt(document.getElementById('jumlah').value) || 1;
+            const total = selectedPrice * quantity;
+            document.getElementById('totalHarga').textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function showModal() {
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
+            document.getElementById('purchaseForm').reset();
+            document.querySelectorAll('.tumbler-card').forEach(card => card.classList.remove('selected'));
+            selectedTumblerType = '';
+            selectedPrice = 0;
+            document.getElementById('totalHarga').textContent = 'Rp 0';
+        }
+
+        // Form submission ke Google Sheets
+        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!selectedTumblerType) {
+                alert('Silakan pilih jenis tumbler terlebih dahulu!');
+                return;
+            }
+
+            const formData = {
+                namaLengkap: document.getElementById('namaLengkap').value,
+                email: document.getElementById('email').value,
+                telepon: document.getElementById('telepon').value,
+                kota: document.getElementById('kota').value,
+                alamat: document.getElementById('alamat').value,
+                selectedTumbler: selectedTumblerType,
+                tumblerPrice: selectedPrice,
+                jumlah: document.getElementById('jumlah').value,
+                warna: document.getElementById('warna').value,
+                catatan: document.getElementById('catatan').value,
+                totalHarga: document.getElementById('totalHarga').textContent.replace("Rp ","").replace(/\./g,"")
+            };
+
+            fetch("https://script.google.com/macros/s/AKfycbxmgmJny-kKMTXqukBTrmCu6ITHM_eIt6ElC9IcrJbGCczCpCOxFjQjRgglkK0IPYnW-A/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }).then(() => {
+                showModal();
+            }).catch(err => {
+                alert("Gagal mengirim data: " + err);
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
+        });
+    </script>
+</body>
+</html>
