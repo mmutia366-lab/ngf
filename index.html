@@ -20,17 +20,30 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
         }
-        .tumbler-icon { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        .success-animation { animation: successPulse 0.6s ease-out; }
-        @keyframes successPulse {0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+        .tumbler-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .success-animation {
+            animation: successPulse 0.6s ease-out;
+        }
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
         .price-highlight {
             background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .tumbler-card { transition: all 0.3s ease; }
+        .tumbler-card {
+            transition: all 0.3s ease;
+        }
         .tumbler-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -54,8 +67,211 @@
         <div class="glass-effect rounded-2xl p-8 shadow-2xl">
             <form id="purchaseForm" class="space-y-8">
                 <!-- Data Pembeli -->
-                <!-- (isi form tetap sama seperti punyamu) -->
-                <!-- ... -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Data Pembeli
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="namaLengkap" class="block text-sm font-medium text-gray-700 mb-2">
+                                Nama Lengkap *
+                            </label>
+                            <input 
+                                type="text" 
+                                id="namaLengkap" 
+                                name="namaLengkap" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus"
+                                placeholder="Masukkan nama lengkap"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                                Email *
+                            </label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus"
+                                placeholder="contoh@email.com"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="telepon" class="block text-sm font-medium text-gray-700 mb-2">
+                                Nomor Telepon *
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="telepon" 
+                                name="telepon" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus"
+                                placeholder="08xxxxxxxxxx"
+                            >
+                        </div>
+
+                        <div>
+                            <label for="kota" class="block text-sm font-medium text-gray-700 mb-2">
+                                Kota *
+                            </label>
+                            <select 
+                                id="kota" 
+                                name="kota" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus"
+                            >
+                                <option value="">Pilih Kota</option>
+                                <option value="jakarta">Jakarta</option>
+                                <option value="bandung">Bandung</option>
+                                <option value="surabaya">Surabaya</option>
+                                <option value="yogyakarta">Yogyakarta</option>
+                                <option value="medan">Medan</option>
+                                <option value="semarang">Semarang</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label for="alamat" class="block text-sm font-medium text-gray-700 mb-2">
+                            Alamat Lengkap *
+                        </label>
+                        <textarea 
+                            id="alamat" 
+                            name="alamat" 
+                            required
+                            rows="3"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus resize-none"
+                            placeholder="Masukkan alamat lengkap untuk pengiriman"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Pilihan Tumbler -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        Pilih Tumbler
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'classic', 75000)">
+                            <div class="text-center">
+                                <div class="text-4xl mb-3">🥤</div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Tumbler Classic</h4>
+                                <p class="text-sm text-gray-600 mb-3">Kapasitas 500ml, BPA Free</p>
+                                <div class="price-highlight text-xl font-bold">Rp 75.000</div>
+                            </div>
+                        </div>
+
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'premium', 125000)">
+                            <div class="text-center">
+                                <div class="text-4xl mb-3">🍺</div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Tumbler Premium</h4>
+                                <p class="text-sm text-gray-600 mb-3">Kapasitas 750ml, Stainless Steel</p>
+                                <div class="price-highlight text-xl font-bold">Rp 125.000</div>
+                            </div>
+                        </div>
+
+                        <div class="tumbler-card border-2 border-gray-200 rounded-xl p-4 cursor-pointer" onclick="selectTumbler(event, 'deluxe', 200000)">
+                            <div class="text-center">
+                                <div class="text-4xl mb-3">🏆</div>
+                                <h4 class="font-semibold text-gray-800 mb-2">Tumbler Deluxe</h4>
+                                <p class="text-sm text-gray-600 mb-3">Kapasitas 1L, Vacuum Insulated</p>
+                                <div class="price-highlight text-xl font-bold">Rp 200.000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="selectedTumbler" name="selectedTumbler" required>
+                    <input type="hidden" id="tumblerPrice" name="tumblerPrice">
+                </div>
+
+                <!-- Jumlah dan Warna -->
+                <div class="border-b border-gray-200 pb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="jumlah" class="block text-sm font-medium text-gray-700 mb-2">
+                                Jumlah *
+                            </label>
+                            <div class="flex items-center space-x-3">
+                                <button type="button" onclick="changeQuantity(-1)" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                    </svg>
+                                </button>
+                                <input 
+                                    type="number" 
+                                    id="jumlah" 
+                                    name="jumlah" 
+                                    value="1" 
+                                    min="1" 
+                                    max="10"
+                                    required
+                                    class="w-20 px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    onchange="updateTotal()"
+                                >
+                                <button type="button" onclick="changeQuantity(1)" class="w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-lg flex items-center justify-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="warna" class="block text-sm font-medium text-gray-700 mb-2">
+                                Warna *
+                            </label>
+                            <select 
+                                id="warna" 
+                                name="warna" 
+                                required
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus"
+                            >
+                                <option value="">Pilih Warna</option>
+                                <option value="hitam">Hitam</option>
+                                <option value="putih">Putih</option>
+                                <option value="biru">Biru</option>
+                                <option value="merah">Merah</option>
+                                <option value="hijau">Hijau</option>
+                                <option value="pink">Pink</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Harga -->
+                <div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6">
+                    <div class="flex justify-between items-center text-lg">
+                        <span class="font-medium text-gray-700">Total Harga:</span>
+                        <span id="totalHarga" class="price-highlight text-2xl font-bold">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Catatan -->
+                <div>
+                    <label for="catatan" class="block text-sm font-medium text-gray-700 mb-2">
+                        Catatan Tambahan
+                    </label>
+                    <textarea 
+                        id="catatan" 
+                        name="catatan" 
+                        rows="3"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300 input-focus resize-none"
+                        placeholder="Tambahkan catatan khusus untuk pesanan Anda (opsional)"
+                    ></textarea>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="pt-6">
                     <button 
@@ -95,15 +311,18 @@
         let selectedTumblerType = '';
         let selectedPrice = 0;
 
-        function selectTumbler(type, price) {
+        function selectTumbler(event, type, price) {
             document.querySelectorAll('.tumbler-card').forEach(card => {
                 card.classList.remove('selected');
             });
             event.currentTarget.classList.add('selected');
+            
             document.getElementById('selectedTumbler').value = type;
             document.getElementById('tumblerPrice').value = price;
+            
             selectedTumblerType = type;
             selectedPrice = price;
+            
             updateTotal();
         }
 
@@ -111,6 +330,7 @@
             const quantityInput = document.getElementById('jumlah');
             let currentValue = parseInt(quantityInput.value);
             let newValue = currentValue + change;
+            
             if (newValue >= 1 && newValue <= 10) {
                 quantityInput.value = newValue;
                 updateTotal();
@@ -120,7 +340,8 @@
         function updateTotal() {
             const quantity = parseInt(document.getElementById('jumlah').value) || 1;
             const total = selectedPrice * quantity;
-            document.getElementById('totalHarga').textContent = 'Rp ' + total.toLocaleString('id-ID');
+            document.getElementById('totalHarga').textContent = 
+                'Rp ' + total.toLocaleString('id-ID');
         }
 
         function showModal() {
@@ -131,49 +352,25 @@
         function closeModal() {
             document.getElementById('successModal').classList.add('hidden');
             document.getElementById('successModal').classList.remove('flex');
+            
             document.getElementById('purchaseForm').reset();
-            document.querySelectorAll('.tumbler-card').forEach(card => card.classList.remove('selected'));
+            document.querySelectorAll('.tumbler-card').forEach(card => {
+                card.classList.remove('selected');
+            });
             selectedTumblerType = '';
             selectedPrice = 0;
             document.getElementById('totalHarga').textContent = 'Rp 0';
         }
 
-        // Form submission ke Google Sheets
         document.getElementById('purchaseForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             if (!selectedTumblerType) {
-                alert('Silakan pilih jenis tumbler terlebih dahulu!');
+                alert('Silakan pilih jenis tumbler terlebih dahulu.');
                 return;
             }
-
-            const formData = {
-                namaLengkap: document.getElementById('namaLengkap').value,
-                email: document.getElementById('email').value,
-                telepon: document.getElementById('telepon').value,
-                kota: document.getElementById('kota').value,
-                alamat: document.getElementById('alamat').value,
-                selectedTumbler: selectedTumblerType,
-                tumblerPrice: selectedPrice,
-                jumlah: document.getElementById('jumlah').value,
-                warna: document.getElementById('warna').value,
-                catatan: document.getElementById('catatan').value,
-                totalHarga: document.getElementById('totalHarga').textContent.replace("Rp ","").replace(/\./g,"")
-            };
-
-            fetch("https://script.google.com/macros/s/AKfycbxmgmJny-kKMTXqukBTrmCu6ITHM_eIt6ElC9IcrJbGCczCpCOxFjQjRgglkK0IPYnW-A/exec", {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            }).then(() => {
-                showModal();
-            }).catch(err => {
-                alert("Gagal mengirim data: " + err);
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            updateTotal();
+            
+            showModal();
         });
     </script>
 </body>
